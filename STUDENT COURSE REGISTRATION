@@ -1,0 +1,100 @@
+#include <stdio.h>
+#include <string.h>
+#define MAX_COURSES 5
+#define MAX_STUDENTS 100
+struct Course {
+char name[50]
+int code;
+};
+struct Student {
+    char name[100];
+    char address[100];
+    char email[100];
+    char phoneNumber[20];
+    char parentName[100];
+    int selectedCourse;
+};
+int main() {
+    struct Course courses[MAX_COURSES] = {
+    {"B.Tech", 101},
+    {"B.Pharm", 102},
+    {"B.Sc", 103},
+    {"B.Com", 104},
+    {"BCA", 105}
+ };
+struct Student students[MAX_STUDENTS];
+int numStudents = 0;
+printf("Welcome to Course Registration\n");
+int option
+do {
+        printf("\nAvailable Courses:\n");
+        for (int i = 0; i < MAX_COURSES; i++) {
+        printf("%d. %s\n", courses[i].code, courses[i].name);
+      }
+printf("\nEnter student information:\n");
+printf("Name: ");
+scanf(" %[^\n]", students[numStudents].name);
+printf("Address: ");
+scanf(" %[^\n]", students[numStudents].address);
+printf("Email: ");
+scanf(" %[^\n]", students[numStudents].email);
+printf("Phone Number: ");
+scanf(" %[^\n]", students[numStudents].phoneNumber);
+printf("Parent's Name: ");
+scanf(" %[^\n]", students[numStudents].parentName);
+printf("Enter the code of the course you want to register for: ");
+int selectedCourseCode;
+scanf("%d", &selectedCourseCode);
+int found = 0;
+for (int i = 0; i < MAX_COURSES; i++) {
+if (courses[i].code == selectedCourseCode) {
+students[numStudents].selectedCourse = selectedCourseCode;
+found = 1;
+break;
+        }
+        }
+if (!found) {
+        printf("Invalid course code. Please select a valid course.\n");
+        }
+else {
+        printf("\nRegistration Successful!\n");
+        numStudents++;
+do {
+         printf("1. Enroll another student\n2. Check out information of other students\n3. Exit\n");
+         printf("Enter your choice: ");
+         scanf("%d", &option);
+  if (option == 2) {
+         // Check out information of other students
+         char searchName[100];
+         int studentFound = 0;
+          printf("\nEnter the name of the student to search for: ");
+          scanf(" %[^\n]", searchName);
+          for (int i = 0; i < numStudents; i++) {
+          if (strcmp(searchName, students[i].name) == 0) {
+          printf("Student Information:\n");
+          printf("Name: %s\n", students[i].name);
+          printf("Address: %s\n", students[i].address);
+          printf("Email: %s\n", students[i].email);
+          printf("Phone Number: %s\n", students[i].phoneNumber);
+          printf("Parent's Name: %s\n", students[i].parentName);
+          printf("Selected Course: ");
+          for (int j = 0; j < MAX_COURSES; j++) {
+          if (courses[j].code == students[i].selectedCourse) {
+          printf("%s\n", courses[j].name);
+          break;
+                            }
+                            }
+          studentFound = 1;
+                   break;
+                           } 
+                           }
+
+         if (!studentFound) {
+         printf("Student with the given name is not found.\n");
+                           }
+                    }
+                } while (option != 1 && option != 3);
+           }
+     } while (option != 3);
+    return 0;
+}
